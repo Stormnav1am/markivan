@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mark Ivan</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: monospace;
+    }
+  
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      color: skyblue;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      padding: 12px 16px;
+      z-index: 1;
+      min-width: 160px;
+    }
+
+    .dropdown-toggle::before {
+      content: "\25BE";
+      display: inline-block;
+      margin-right: 5px;
+      transition: transform 0.3s;
+    }
+
+    .dropdown-content.show {
+      display: block;
+    }
+
+    .dropdown.show .dropdown-toggle::before {
+      content: "\25B4";
+    }
+
+    .dropdown-image {
+      max-width: 200px;
+      height: auto;
+    }
+
+    @media screen and (max-width: 800px) {
+      h3 {
+        font-size: 20px;
+      }
+
+      .profile img {
+        width: 50%;
+        border-radius: 10%;
+      }
+
+      .dropdown-image {
+        max-width: 200px;
+      }
+    }
+  </style>
+  
+</head>
+
+<body>
+  <div class="profile">
+    <img src="mee.jpg" alt="My Image">
+  </div>
+  <div class="about">
+    <h3>Mark Ivan</h3>
+    <div class="dropdown" id="dropdown1">
+      <span class="dropdown-toggle">Who is Mark Ivan?</span>
+      <div class="dropdown-content">
+        <p>Mark Ivan A. Sumalinog was a Filipino web developer and CEO of Project Sabel. He was responsible for creating high-level artificial intelligence and machine learning systems. Mark Ivan also authored numerous books on technology and played a significant role in making technology safe by ensuring the safety of artificial intelligence for people.</p>
+      </div>
+    </div>
+    <div class="dropdown" id="dropdown2">
+      <span class="dropdown-toggle">Who is Mark Ivan's wife?</span>
+      <div class="dropdown-content">
+        <p>Mae Langrio</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript code to handle dropdown functionality
+    document.addEventListener("DOMContentLoaded", function () {
+      const dropdowns = document.querySelectorAll(".dropdown");
+
+      dropdowns.forEach(function (dropdown) {
+        const dropdownContent = dropdown.querySelector(".dropdown-content");
+        let imageAdded = false;
+
+        dropdown.addEventListener("click", function (event) {
+          const isDropdownOpen = dropdown.classList.contains("show");
+
+          dropdowns.forEach(function (otherDropdown) {
+            otherDropdown.classList.remove("show");
+            otherDropdown.querySelector(".dropdown-content").classList.remove("show");
+          });
+
+          if (!isDropdownOpen) {
+            dropdownContent.classList.add("show");
+            dropdown.classList.add("show");
+          }
+
+          if (dropdown.id === "dropdown2" && !imageAdded) {
+            const imageContainer = document.createElement("div");
+            const image = new Image();
+            image.src = "love.jpeg";
+            image.alt = "Love";
+            image.classList.add("dropdown-image");
+            imageContainer.appendChild(image);
+            dropdownContent.appendChild(imageContainer);
+            imageAdded = true;
+          }
+
+          event.stopPropagation();
+        });
+      });
+
+      document.addEventListener("click", function () {
+        dropdowns.forEach(function (dropdown) {
+          dropdown.classList.remove("show");
+          dropdown.querySelector(".dropdown-content").classList.remove("show");
+        });
+      });
+    });
+  </script>
+</body>
+</html>
